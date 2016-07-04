@@ -392,6 +392,11 @@ EOF
 
 [ -x /opt/bin/on_wps.sh ] && /opt/bin/on_wps.sh \$1 &
 
+export LD_LIBRARY_PATH=/lib:/etc_ro/lib:/opt/lib
+vlmcsd -v -l syslog -P 1688 -L 0.0.0.0 -m 5 -t 30 -d -C 2052 -p /var/run/vlmcsd.pid
+sleep 300
+killall -SIGINT vlmcsd
+
 EOF
 		chmod 755 "$script_ezbtn"
 	fi

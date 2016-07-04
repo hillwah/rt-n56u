@@ -68,9 +68,9 @@ struct nvram_pair router_defaults[] = {
 	{ "wan_ipaddr", "0.0.0.0" },		/* WAN IP address */
 	{ "wan_netmask", "0.0.0.0" },		/* WAN netmask */
 	{ "wan_gateway", "0.0.0.0" },		/* WAN gateway */
-	{ "wan_dnsenable_x", "1" },
-	{ "wan_dns1_x", "" },
-	{ "wan_dns2_x", "" },
+	{ "wan_dnsenable_x", "0" },
+	{ "wan_dns1_x", "223.5.5.5" },
+	{ "wan_dns2_x", "180.76.76.76" },
 	{ "wan_dns3_x", "" },
 	{ "wan_hostname", "" },			/* WAN hostname */
 	{ "wan_vci", "" },			/* WAN vendor class identifier (OPT-60) */
@@ -120,8 +120,8 @@ struct nvram_pair router_defaults[] = {
 	{ "wan_pppoe_service", "" },		/* PPPoE service name */
 	{ "wan_pppoe_ac", "" },			/* PPPoE access concentrator name */
 	{ "wan_pppoe_man", "1" },		/* PPPoE & MAN */
-	{ "wan_pppoe_mtu", "1492" },		/* Negotiate MTU to the smaller of this value or the peer MRU */
-	{ "wan_pppoe_mru", "1492" },		/* Negotiate MRU to this value */
+	{ "wan_pppoe_mtu", "1480" },		/* Negotiate MTU to the smaller of this value or the peer MRU */
+	{ "wan_pppoe_mru", "1480" },		/* Negotiate MRU to this value */
 	{ "wan_pptp_mtu", "1400" },		/* Negotiate MTU to the smaller of this value or the peer MRU */
 	{ "wan_pptp_mru", "1400" },		/* Negotiate MRU to this value */
 	{ "wan_l2tp_mtu", "1460" },		/* Negotiate MTU to the smaller of this value or the peer MRU */
@@ -142,7 +142,7 @@ struct nvram_pair router_defaults[] = {
 	{ "http_username", SYS_USER_ROOT },	/* Username */
 	{ "http_passwd", DEF_ROOT_PASSWORD },	/* Password */
 	{ "http_access", "0" },			/* HTTP access (0: ALL, 1: LAN only, 2: LAN + Wireless MainAP) */
-	{ "http_proto", "0" },			/* HTTP proto (0: HTTP, 1: HTTPS, 2: Both) */
+	{ "http_proto", "2" },			/* HTTP proto (0: HTTP, 1: HTTPS, 2: Both) */
 	{ "http_lanport", "80" },		/* HTTP LAN port to listen on */
 	{ "https_lport", "443" },		/* HTTPS LAN port to listen on */
 	{ "https_clist", DEF_HTTPS_CIPH_LIST },	/* HTTPS SSL cipher list */
@@ -419,13 +419,13 @@ struct nvram_pair router_defaults[] = {
 	{ "ip6_lan_sfpe", "4352" }, // 0x1100
 
 	{ "upnp_enable_x", "1" },
-	{ "upnp_proto", "0" },
+	{ "upnp_proto", "2" },
 	{ "upnp_secure", "1" },
 	{ "upnp_clean_min", "10" },
 	{ "upnp_clean_int", "600" },
-	{ "upnp_iport_min", "21" },
+	{ "upnp_iport_min", "1024" },
 	{ "upnp_iport_max", "65535" },
-	{ "upnp_eport_min", "80" },
+	{ "upnp_eport_min", "1024" },
 	{ "upnp_eport_max", "65535" },
 	{ "vts_enable_x", "0" },
 	{ "vts_num_x", "0" },
@@ -470,8 +470,8 @@ struct nvram_pair router_defaults[] = {
 	{ "dr_staticgateway_x", "" },
 
 	/* DHCP server parameters */
-	{ "dhcp_start", "192.168.1.2" },	/* First assignable DHCP address */
-	{ "dhcp_end", "192.168.1.244" },	/* Last assignable DHCP address */
+	{ "dhcp_start", "192.168.1.101" },	/* First assignable DHCP address */
+	{ "dhcp_end", "192.168.1.250" },	/* Last assignable DHCP address */
 	{ "dhcp_enable_x", "1" },
 	{ "dhcp_lease", "86400" },
 	{ "dhcp_gateway_x", "" },
@@ -485,7 +485,7 @@ struct nvram_pair router_defaults[] = {
 	{ "dhcp_staticnum_x", "0" },
 
 	/* NTP client parameters */
-	{ "ntp_period", "24" },
+	{ "ntp_period", "6" },
 	{ "ntp_server0", DEF_NTP_SERVER0 },
 	{ "ntp_server1", DEF_NTP_SERVER1 },
 
@@ -498,14 +498,14 @@ struct nvram_pair router_defaults[] = {
 	{ "ddns_hostname2_x", "" },
 	{ "ddns_hostname3_x", "" },
 	{ "ddns_wildcard_x", "0" },
-	{ "ddns_cst_svr", "" },
-	{ "ddns_cst_url", "" },
-	{ "ddns_period", "24" },
-	{ "ddns_forced", "10" },
+	{ "ddns_cst_svr", "ddns.oray.com" },
+	{ "ddns_cst_url", "/ph/update?&hostname=" },
+	{ "ddns_period", "3" },
+	{ "ddns_forced", "7" },
 	{ "ddns_verbose", "1" },
 	{ "ddns_source", "0" },
-	{ "ddns_checkip", "0" },
-	{ "ddns_ssl", "1" },
+	{ "ddns_checkip", "1" },
+	{ "ddns_ssl", "0" },
 	{ "ddns2_server", "" },
 	{ "ddns2_hname", "" },
 	{ "ddns2_user", "" },
@@ -577,8 +577,8 @@ struct nvram_pair router_defaults[] = {
 	{ "sw_mode", "1" },
 #endif
 
-	{ "telnetd", "1" },
-	{ "sshd_enable", "0" },
+	{ "telnetd", "0" },
+	{ "sshd_enable", "1" },
 	{ "wins_enable", "0" },
 	{ "lltd_enable", "1" },
 	{ "adsc_enable", "0" },
@@ -591,7 +591,7 @@ struct nvram_pair router_defaults[] = {
 
 	{ "wol_mac_last", "" },
 	{ "gw_arp_ping", "0" },
-	{ "ez_action_short", "0" },
+	{ "ez_action_short", "9" },
 #if !defined(BOARD_GPIO_BTN_RESET)
 	{ "ez_action_long", "15" },	/* Reset */
 #else

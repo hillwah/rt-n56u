@@ -886,8 +886,8 @@ static const struct inadyn_system_t {
 static const char *
 inadyn_checkip_url[] = {
 	"",
+	"ddns.oray.com /checkip",
 	"checkip.dyndns.org /",
-	"checkip.dyndns.org:8245 /",
 	"echo.tzo.com /",
 	"ip.dnsexit.com /",
 	"ip.changeip.com /",
